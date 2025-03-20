@@ -7,3 +7,4 @@ prettytable
 langchain
 langchain_openai
 langchain-community
+streamlit
