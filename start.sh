@@ -1,2 +1,2 @@
 #!/bin/bash
-streamlit run urls.py
+streamlit run UI.py
