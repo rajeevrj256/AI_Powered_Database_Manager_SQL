@@ -25,7 +25,9 @@ def connect_db(USER, PASSWORD, HOST, PORT, DBNAME):
         return connection
 
     except Exception as e:
+        error_message = f"Database connection failed: {str(e)}"
         print(f"Failed to connect: {e}")
+        #return error_message
 
 def stucture_table(result):
     columns = [desc[0] for desc in result.description]
