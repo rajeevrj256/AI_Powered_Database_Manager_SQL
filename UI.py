@@ -1,7 +1,8 @@
 import streamlit as st
 import psycopg2
 from urllib.parse import urlparse
-from db_connect import connect_db, table_name, coloumns_name, close_connection,create_bulk_table
+from db_connect import connect_db, table_name, coloumns_name, close_connection
+from table_creation import create_bulk_table
 from chatbot import pipeline
 
 def main():
@@ -27,6 +28,8 @@ def main():
             HOST= parse_url.hostname
             PORT= parse_url.port
             DBNAME= parse_url.path[1:]
+            
+        
         
         connect_btn = st.button("✅ Connect to DB")
         disconnect_btn = st.button("❌ Disconnect")
@@ -51,13 +54,28 @@ def main():
         else:
             selected_table = None
             st.warning("⚠️ No database connected")
-
+            
+            
+        if "connection" in st.session_state:
+            
+            st.subheader("📂 Upload File & Create Table")
+            uploaded_file = st.file_uploader("Upload a CSV or PDF file", type=["csv", "pdf"])
+            table_name_input = st.text_input("Enter Table Name")
+            if uploaded_file and table_name_input:
+                if st.button("📌 Create Table"):
+                    if uploaded_file.type == "text/csv":
+                        
+                        create_bulk_table(uploaded_file,table_name_input, st.session_state["connection"])
+                        st.success(f"✅ Table '{table_name_input}' created successfully!")
+                    elif uploaded_file.type == "application/pdf":
+                        st.error("🚧 PDF processing is not supported yet.")
     # Ensure a connection exists
     if "connection" not in st.session_state:
         st.warning("❗ Please connect to the database.")
         return
 
     
+
 
 
     # Fetch table columns

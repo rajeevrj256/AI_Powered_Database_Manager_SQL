@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 import os
 load_dotenv()
 
-OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 llm=OpenAI(api_key=OPENAI_API_KEY)
 memory = ConversationBufferMemory()
@@ -52,7 +52,7 @@ def generate_query(prompt, table_name, column_names):
         template = PromptTemplate(
             input_variables=["user_input", "table_name", "column_names"],
             template="""You are an expert PostgreSQL query generator. Write a highly optimized SQL query for the following request: 
-            '{user_input}' from table '{table_name}' having columns {column_names}. 
+            '{user_input}' from table '{table_name}' having columns {column_names}, use columns as a string in PostgreSQLquery. 
             Ensure the query is efficient and follows best practices. Generate only one response.
             
             Note: Only Give PostgreSQL Query.Stricly follow the given format.

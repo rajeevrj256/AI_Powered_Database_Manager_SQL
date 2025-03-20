@@ -1,6 +1,7 @@
 import psycopg2
 from dotenv import load_dotenv
 from prettytable import PrettyTable
+import pandas as pd
 
 
 
@@ -42,9 +43,11 @@ def query_execute(connection, query):
             result = stucture_table(cursor)
             return result
         else:
+            
             connection.commit()
             return "Query executed successfully."
     except Exception as e:
+        connection.rollback()
         return f"Error: {e}"    
         
 def table_name(connection):
@@ -71,8 +74,31 @@ WHERE table_schema = 'public' AND table_type = 'BASE TABLE';
     print(table_data)
     return table_data
        
-def create_bulk_table(file,connection):
-    return 
+
+def create_bulk_table(file,table_name,connection):
+    try:
+        print("converting data into dataframe")
+        df = pd.read_csv(file) if isinstance(file, str) else pd.read_csv(file)
+        df=pd.DataFrame(df)
+        print("creating table")
+        print(file)
+        sql= f"DROP TABLE IF EXISTS {table_name};"
+        sql += f"CREATE TABLE {table_name} (\n"
+        for col, dtype in df.dtypes.items():
+            col = f'"{col.strip()}"'
+            if "int" in str(dtype):
+                sql += f"    {col} INTEGER,\n"
+            elif "float" in str(dtype):
+                sql += f"    {col} FLOAT,\n"
+            else:
+                sql += f"    {col} TEXT,\n"
+        sql = sql.rstrip(",\n") + "\n);"
+        print(sql)
+        response=query_execute(connection, sql)
+        print(response)
+        return response
+    except Exception as e:
+        return f"Error: {e}"
     
 def coloumns_name(table_name,connection):
 
