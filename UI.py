@@ -75,8 +75,12 @@ def main():
                 if st.button("📌 Create Table"):
                     if uploaded_file.type == "text/csv":
                         
-                        create_bulk_table(uploaded_file,table_name_input, st.session_state["connection"])
-                        st.success(f"✅ Table '{table_name_input}' created successfully!")
+                        response=create_bulk_table(uploaded_file,table_name_input, st.session_state["connection"])
+                        if response:
+                            st.success(f"✅ Table '{table_name_input}' created successfully!")
+                            table_list = table_name(st.session_state["connection"])
+                            st.session_state["new_table"] = table_name_input
+                            
                     elif uploaded_file.type == "application/pdf":
                         st.error("🚧 PDF processing is not supported yet.")
     # Ensure a connection exists

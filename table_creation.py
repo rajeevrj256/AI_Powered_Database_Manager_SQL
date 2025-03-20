@@ -29,6 +29,8 @@ def create_bulk_table(file, table_name, connection):
 
         # ✅ INSERT DATA INTO TABLE
         insert_data(df, table_name, connection)
+        
+        print("test",response)
 
         return response
     except Exception as e:
