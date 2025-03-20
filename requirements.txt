@@ -6,5 +6,4 @@ psycopg2-binary
 prettytable
 langchain
 langchain_openai
-langchain_core.prompts.PromptTemplate
 langchain-community
