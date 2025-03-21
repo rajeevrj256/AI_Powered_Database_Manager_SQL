@@ -30,13 +30,13 @@ def main():
             PORT= parse_url.port
             DBNAME= parse_url.path[1:]
         
-        # st.header("OR")
+        st.header("OR")
         
-        # USER = st.text_input("Username")
-        # PASSWORD = st.text_input("Password", type="password")
-        # HOST = st.text_input("Host")
-        # PORT = st.number_input("Port", value=5432)
-        # DBNAME = st.text_input("Database Name")   
+        USER = st.text_input("Username")
+        PASSWORD = st.text_input("Password", type="password")
+        HOST = st.text_input("Host")
+        PORT = st.number_input("Port", value=5432)
+        DBNAME = st.text_input("Database Name")   
         
         
         connect_btn = st.button("✅ Connect to DB")
