@@ -1,4 +1,4 @@
 .env
-Database_mananger_Supabase
+Database_manaager_postgreSQL
 test.py
 __pycache__
