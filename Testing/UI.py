@@ -1,16 +1,16 @@
 import streamlit as st
 import psycopg2
 from urllib.parse import urlparse
-from db_connect import connect_db, table_name, coloumns_name, close_connection
-from table_creation import create_bulk_table
-from chatbot import pipeline
+from Testing.db_connect import connect_db, table_name, coloumns_name, close_connection
+from Testing.table_creation import create_bulk_table
+from Testing.chatbot import pipeline
 
 def main():
-    st.set_page_config(page_title="SQL Query Assistant", layout="wide")
+    st.set_page_config(page_title="Database Query Assistant", layout="wide")
 
     # Top Navigation
     st.markdown(
-        "<h1 style='text-align: center;'>SQL Query Assistant 💬</h1>", 
+        "<h1 style='text-align: center;'>Database Query Assistant 💬</h1>", 
         unsafe_allow_html=True
     )
 
@@ -76,6 +76,7 @@ def main():
                     if uploaded_file.type == "text/csv":
                         
                         response=create_bulk_table(uploaded_file,table_name_input, st.session_state["connection"])
+                        print("crate jnfjkewfnkerjfn",response)
                         if response:
                             st.success(f"✅ Table '{table_name_input}' created successfully!")
                             table_list = table_name(st.session_state["connection"])

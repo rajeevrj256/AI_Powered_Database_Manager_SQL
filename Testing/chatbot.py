@@ -1,9 +1,9 @@
 
-from agents import define_complexity, generate_query, generate_query_with_complex,create_new_table
+from Testing.agents import define_complexity, generate_query, generate_query_with_complex,create_new_table
 
 
 
-from db_connect import main,coloumns_name
+from Testing.db_connect import main,coloumns_name
 
 
 

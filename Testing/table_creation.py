@@ -1,5 +1,5 @@
 import pandas as pd
-from db_connect import query_execute
+from Testing.db_connect import query_execute
 
 def create_bulk_table(file, table_name, connection):
     try:
