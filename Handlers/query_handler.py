@@ -3,9 +3,9 @@ from langchain.memory import ConversationBufferMemory
 from langchain_openai import OpenAI
 from dotenv import load_dotenv
 import os
-load_dotenv()
+load_dotenv(dotenv_path=".env")
 
-OPENAI_API_KEY = ""
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 llm=OpenAI(api_key=OPENAI_API_KEY)
 memory = ConversationBufferMemory()

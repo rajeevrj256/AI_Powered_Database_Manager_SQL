@@ -11,7 +11,7 @@ connection_lock=threading.Lock()
 
 connection_timeout=300
 
-def create_connection_pool(user,password,host,port,database,min_conn=1,max_conn=20):
+def create_connection_pool(user,password,host,port,database,min_conn=1,max_conn=120):
     pool_key=f"{user}:{host}/{database}"
     
     with connection_lock:

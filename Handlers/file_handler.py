@@ -4,6 +4,7 @@ from Testing.db_connect import query_execute
 def create_bulk_table(file, table_name, connection):
     try:
         print("Converting data into DataFrame...")
+        
         df = pd.read_csv(file) if isinstance(file, str) else pd.read_csv(file)
         df = pd.DataFrame(df)
 
@@ -24,15 +25,18 @@ def create_bulk_table(file, table_name, connection):
         sql = sql.rstrip(",\n") + "\n);"
 
         print(f"Executing SQL:\n{sql}")
-        response = query_execute(connection, sql)
-        print(response)
+        cursor=connection.cursor()
+        cursor.execute(sql)
+        connection.commit()
+        print(f"Table {table_name} created successfully!")
+        
 
         # ✅ INSERT DATA INTO TABLE
         insert_data(df, table_name, connection)
         
-        print("test",response)
+        print("test",sql)
 
-        return response
+        return {"message": f"Table {table_name} created successfully!"},200
     except Exception as e:
         return f"Error: {e}"
 
