@@ -9,7 +9,7 @@ langchain-community
 streamlit
 Flask
 flask_cors
-"flask[async]"
+flask[async]
 hypercorn
 uvicorn
 flask-caching
